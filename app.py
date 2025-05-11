@@ -10,11 +10,9 @@ from technical_analysis_tab import render_technical_analysis
 
 st.set_page_config(page_title="Signal Dashboard", layout="wide")
 
-# Initialize state
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
-# Show login form if not authenticated
 if not st.session_state.authenticated:
     st.title("🔐 Login Required")
     password = st.text_input("Enter password to continue", type="password")
@@ -26,7 +24,6 @@ if not st.session_state.authenticated:
         else:
             st.error("Incorrect password.")
 else:
-    # Main navigation and dashboard
     st.sidebar.title("📊 Navigation")
     PAGES = {
         "Unified Client Report": render_unified_report,
