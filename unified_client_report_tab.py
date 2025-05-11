@@ -2,10 +2,10 @@
 import streamlit as st
 import pandas as pd
 import tempfile
-from modules.behavioral_questionnaire import QUESTIONS, calculate_behavior_score
-from modules.etf_model_manager import ETF_MODELS
-from modules.portfolio_analyzer import analyze_uploaded_portfolio
-from modules.combined_pdf_generator import CombinedPDFReport
+from behavioral_questionnaire import QUESTIONS, calculate_behavior_score
+from etf_model_manager import ETF_MODELS
+from portfolio_analyzer import analyze_uploaded_portfolio
+from combined_pdf_generator import CombinedPDFReport
 
 st.title("Generate Unified Client Report")
 

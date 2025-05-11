@@ -1,8 +1,8 @@
 
 import streamlit as st
 import tempfile
-from modules.behavioral_questionnaire import QUESTIONS, calculate_behavior_score
-from modules.pdf_generator import PDFReport
+from behavioral_questionnaire import QUESTIONS, calculate_behavior_score
+from pdf_generator import PDFReport
 
 st.title("Client Behavioral Questionnaire with PDF Export")
 

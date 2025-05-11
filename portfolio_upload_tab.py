@@ -2,9 +2,9 @@
 import streamlit as st
 import pandas as pd
 import tempfile
-from modules.portfolio_analyzer import analyze_uploaded_portfolio
-from modules.etf_model_manager import ETF_MODELS
-from modules.pdf_generator import PortfolioPDFReport
+from portfolio_analyzer import analyze_uploaded_portfolio
+from etf_model_manager import ETF_MODELS
+from pdf_generator import PortfolioPDFReport
 
 st.title("Upload Portfolio for AI Analysis + PDF Export")
 
