@@ -12,22 +12,26 @@ st.set_page_config(page_title="Signal Dashboard", layout="wide")
 
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
-    st.session_state.ready_to_continue = False
+if "continue_to_dashboard" not in st.session_state:
+    st.session_state.continue_to_dashboard = False
 
 if not st.session_state.authenticated:
     st.title("Welcome to the Signal System")
     password = st.text_input("Enter password to continue", type="password")
     if password == "admin123":
         st.session_state.authenticated = True
-        st.session_state.ready_to_continue = True
-        st.success("✅ Access granted. Click below to enter the dashboard.")
-        if st.button("Continue"):
-            pass
-        else:
-            st.stop()
+        st.success("✅ Access granted. Click below to continue.")
     elif password:
         st.error("❌ Incorrect password.")
     st.stop()
+
+if not st.session_state.continue_to_dashboard:
+    st.title("Welcome to the Signal System")
+    st.success("✅ Access granted.")
+    if st.button("Continue to Dashboard"):
+        st.session_state.continue_to_dashboard = True
+    else:
+        st.stop()
 
 PAGES = {
     "Unified Client Report": render_unified_report,
