@@ -24,8 +24,7 @@ class CombinedPDFReport(FPDF):
         self.cell(0, 10, "Responses:", ln=True)
         self.set_font("Arial", "", 11)
         for i, (question, answer) in enumerate(responses):
-            self.multi_cell(0, 10, f"{i+1}. {question}
-   Answer: {answer}")
+            self.multi_cell(0, 10, f"{i+1}. {question}\n   Answer: {answer}")
             self.ln(1)
 
         self.set_font("Arial", "B", 12)
