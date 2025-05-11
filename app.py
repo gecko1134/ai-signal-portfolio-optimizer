@@ -4,7 +4,6 @@ import importlib
 
 st.set_page_config(page_title="Client Signal Dashboard", layout="wide")
 
-# Basic login simulation
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
@@ -12,15 +11,14 @@ if not st.session_state.authenticated:
     st.title("Welcome to the Signal System Dashboard")
     st.markdown("🔐 Please enter your password to continue.")
     password = st.text_input("Password", type="password")
-    if password == "admin123":  # You can change this password
+    if password == "admin123":
         st.session_state.authenticated = True
-        st.success("Access granted. Loading dashboard...")
-        st.experimental_rerun()
+        st.success("Access granted. Please click anywhere or refresh the page to continue.")
+        st.stop()
     elif password:
         st.error("Incorrect password.")
     st.stop()
 
-# Navigation
 PAGES = {
     "Unified Client Report": "unified_client_report_tab",
     "Client Behavioral Questionnaire": "client_behavioral_quiz_tab",
