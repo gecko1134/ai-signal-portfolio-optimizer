@@ -12,27 +12,36 @@ st.set_page_config(page_title="Signal Dashboard", layout="wide")
 
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
+if "continue" not in st.session_state:
+    st.session_state.continue = False
 
 if not st.session_state.authenticated:
     st.title("🔐 Login Required")
     password = st.text_input("Enter password to continue", type="password")
-    login_button = st.button("Login")
-    if login_button:
+    if st.button("Login"):
         if password == "admin123":
             st.session_state.authenticated = True
-            st.experimental_rerun()
+            st.success("✅ Access granted. Click below to continue.")
         else:
-            st.error("Incorrect password.")
-else:
-    st.sidebar.title("📊 Navigation")
-    PAGES = {
-        "Unified Client Report": render_unified_report,
-        "Client Behavioral Questionnaire": render_behavior_quiz,
-        "Upload & Analyze Portfolio": render_portfolio_upload,
-        "AI Portfolio Optimizer": render_optimizer,
-        "AI Performance Dashboard": render_performance_dashboard,
-        "Performance: Change vs Hold": render_performance_comparison,
-        "Technical Analysis": render_technical_analysis
-    }
-    selection = st.sidebar.radio("Choose a page", list(PAGES.keys()))
-    PAGES[selection]()
+            st.error("❌ Incorrect password.")
+    st.stop()
+
+if not st.session_state.continue:
+    if st.button("Continue"):
+        st.session_state.continue = True
+    else:
+        st.stop()
+
+PAGES = {
+    "Unified Client Report": render_unified_report,
+    "Client Behavioral Questionnaire": render_behavior_quiz,
+    "Upload & Analyze Portfolio": render_portfolio_upload,
+    "AI Portfolio Optimizer": render_optimizer,
+    "AI Performance Dashboard": render_performance_dashboard,
+    "Performance: Change vs Hold": render_performance_comparison,
+    "Technical Analysis": render_technical_analysis
+}
+
+st.sidebar.title("📊 Navigation")
+selection = st.sidebar.radio("Choose a page", list(PAGES.keys()))
+PAGES[selection]()
