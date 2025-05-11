@@ -1,6 +1,5 @@
 
 import streamlit as st
-
 from unified_client_report_tab import render_unified_report
 from client_behavioral_quiz_tab import render_behavior_quiz
 from portfolio_upload_tab import render_portfolio_upload
@@ -13,16 +12,21 @@ st.set_page_config(page_title="Signal Dashboard", layout="wide")
 
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
+    st.session_state.ready_to_continue = False
 
 if not st.session_state.authenticated:
     st.title("Welcome to the Signal System")
     password = st.text_input("Enter password to continue", type="password")
     if password == "admin123":
         st.session_state.authenticated = True
-        st.success("Access granted. Please select a tool from the sidebar.")
-        st.stop()
+        st.session_state.ready_to_continue = True
+        st.success("✅ Access granted. Click below to enter the dashboard.")
+        if st.button("Continue"):
+            pass
+        else:
+            st.stop()
     elif password:
-        st.error("Incorrect password.")
+        st.error("❌ Incorrect password.")
     st.stop()
 
 PAGES = {
