@@ -10,39 +10,32 @@ from technical_analysis_tab import render_technical_analysis
 
 st.set_page_config(page_title="Signal Dashboard", layout="wide")
 
+# Initialize state
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
-if "continue_to_dashboard" not in st.session_state:
-    st.session_state.continue_to_dashboard = False
 
+# Show login form if not authenticated
 if not st.session_state.authenticated:
-    st.title("Welcome to the Signal System")
+    st.title("🔐 Login Required")
     password = st.text_input("Enter password to continue", type="password")
-    if password == "admin123":
-        st.session_state.authenticated = True
-        st.success("✅ Access granted. Click below to continue.")
-    elif password:
-        st.error("❌ Incorrect password.")
-    st.stop()
-
-if not st.session_state.continue_to_dashboard:
-    st.title("Welcome to the Signal System")
-    st.success("✅ Access granted.")
-    if st.button("Continue to Dashboard"):
-        st.session_state.continue_to_dashboard = True
-    else:
-        st.stop()
-
-PAGES = {
-    "Unified Client Report": render_unified_report,
-    "Client Behavioral Questionnaire": render_behavior_quiz,
-    "Upload & Analyze Portfolio": render_portfolio_upload,
-    "AI Portfolio Optimizer": render_optimizer,
-    "AI Performance Dashboard": render_performance_dashboard,
-    "Performance: Change vs Hold": render_performance_comparison,
-    "Technical Analysis": render_technical_analysis
-}
-
-st.sidebar.title("📊 Navigation")
-selection = st.sidebar.radio("Choose a page", list(PAGES.keys()))
-PAGES[selection]()
+    login_button = st.button("Login")
+    if login_button:
+        if password == "admin123":
+            st.session_state.authenticated = True
+            st.experimental_rerun()
+        else:
+            st.error("Incorrect password.")
+else:
+    # Main navigation and dashboard
+    st.sidebar.title("📊 Navigation")
+    PAGES = {
+        "Unified Client Report": render_unified_report,
+        "Client Behavioral Questionnaire": render_behavior_quiz,
+        "Upload & Analyze Portfolio": render_portfolio_upload,
+        "AI Portfolio Optimizer": render_optimizer,
+        "AI Performance Dashboard": render_performance_dashboard,
+        "Performance: Change vs Hold": render_performance_comparison,
+        "Technical Analysis": render_technical_analysis
+    }
+    selection = st.sidebar.radio("Choose a page", list(PAGES.keys()))
+    PAGES[selection]()
