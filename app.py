@@ -12,8 +12,8 @@ st.set_page_config(page_title="Signal Dashboard", layout="wide")
 
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
-if "continue" not in st.session_state:
-    st.session_state.continue = False
+if "proceed" not in st.session_state:
+    st.session_state.proceed = False
 
 if not st.session_state.authenticated:
     st.title("🔐 Login Required")
@@ -26,9 +26,9 @@ if not st.session_state.authenticated:
             st.error("❌ Incorrect password.")
     st.stop()
 
-if not st.session_state.continue:
+if not st.session_state.proceed:
     if st.button("Continue"):
-        st.session_state.continue = True
+        st.session_state.proceed = True
     else:
         st.stop()
 
